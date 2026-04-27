@@ -1,24 +1,24 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu as MenuIcon, X } from 'lucide-react'
-import { menuData } from './menuData'
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu as MenuIcon, X } from "lucide-react";
+import { menuData } from "./menuData";
 
-const DELIVERY_LINK = "https://app.neighbourhoodmunchies.com/restaurants/66a41ddb79bc56000c3a3086"
+const DELIVERY_LINK = "https://app.neighbourhoodmunchies.com/restaurants/66a41ddb79bc56000c3a3086";
 
 export default function App() {
-const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-return ( <div className="min-h-screen p-6">
+return ( <div>
 
 ```
   {/* HEADER */}
-  <header className="flex justify-between items-center mb-10">
-    <img src="/logo.png" className="h-12" />
-    
+  <div style={{ display: "flex", justifyContent: "space-between", padding: "20px" }}>
+    <img src="/logo.png" style={{ height: "50px" }} />
+
     <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
       {isMobileMenuOpen ? <X /> : <MenuIcon />}
     </button>
-  </header>
+  </div>
 
   {/* MOBILE MENU */}
   <AnimatePresence>
@@ -27,7 +27,7 @@ return ( <div className="min-h-screen p-6">
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-white p-10"
+        style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "white", padding: "40px" }}
       >
         <a href={DELIVERY_LINK} target="_blank">Order Now</a>
       </motion.div>
@@ -35,28 +35,32 @@ return ( <div className="min-h-screen p-6">
   </AnimatePresence>
 
   {/* HERO */}
-  <h1 className="text-4xl mb-6">
+  <h1 style={{ padding: "20px" }}>
     Gourmet Street Food. Caribbean Soul.
   </h1>
 
   {/* MENU */}
-  <div>
-    {menuData.map((cat) => (
-      <div key={cat.title} className="mb-8">
-        <h2 className="text-2xl mb-4">{cat.title}</h2>
+  <div style={{ padding: "20px" }}>
+    {menuData.map(function(cat) {
+      return (
+        <div key={cat.title}>
+          <h2>{cat.title}</h2>
 
-        {cat.items.map((item) => (
-          <div key={item.name} className="flex justify-between mb-2">
-            <span>{item.name}</span>
-            <span>{item.price}</span>
-          </div>
-        ))}
-      </div>
-    ))}
+          {cat.items.map(function(item) {
+            return (
+              <div key={item.name} style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{item.name}</span>
+                <span>{item.price}</span>
+              </div>
+            );
+          })}
+        </div>
+      );
+    })}
   </div>
 
 </div>
 ```
 
-)
+);
 }
